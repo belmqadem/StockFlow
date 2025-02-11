@@ -1,0 +1,251 @@
+:root {
+	--main-font-family: "Lato", serif;
+	--main-bg-color: #DCDFE5;
+	--heading-color: #353A46;
+	--headline-color: #596275;
+	--input-bg-color: #EEEFF2;
+	--placeholder-color: #596275;
+	--input-height: 70px;
+	--button-bg-color: #0042D1;
+	--button-bg-color-hover: #002C8A;
+	--button-color: #FFFFFF;
+	--button-height: 85px;
+	--outline-color: #5F92FF;
+}
+* {
+	margin: 0;
+	padding: 0;
+	box-sizing: border-box;
+	-webkit-box-sizing: border-box;
+	-moz-box-sizing: border-box;
+	font-family: var(--main-font-family);
+}
+html {
+	scroll-behavior: smooth;
+}
+body {
+	background-color: var(--main-bg-color);
+	padding: 70px 16vw;
+}
+@media (max-width: 1024px) {
+	body {
+		padding: 50px 6vw;
+	}
+}
+@media (max-width: 768px) {
+	body {
+		padding: 40px 4vw;
+	}
+}
+@media (max-width: 480px) {
+	body {
+		padding: 30px 20px;
+	}
+}
+input {
+	height: var(--input-height);
+	border: none;
+	border-radius: 4px;
+	background-color: var(--input-bg-color);
+	padding-left: 50px;
+	padding-right: 50px;
+	font-size: 18px;
+	color: #000;
+}
+input::placeholder {
+	color: var(--placeholder-color);
+}
+input:focus {
+	outline: 1px solid var(--outline-color);
+}
+@media (max-width: 768px) {
+	input {
+		font-size: 16px;
+		padding-left: 22px;
+		padding-right: 22px;
+	}
+}
+@media (max-width: 480px) {
+	input {
+		font-size: 14px;
+		padding-left: 22px;
+		padding-right: 22px;
+	}
+}
+.btn-primary {
+	background-color: var(--button-bg-color);
+	color: var(--button-color);
+	border-radius: 50px;
+	width: 100%;
+	height: 85px;
+	border: none;
+	font-size: 20px;
+	text-transform: uppercase;
+	font-weight: 900;
+	transition-duration: .15s;
+	cursor: pointer;
+}
+.btn-primary:hover {
+	background-color: var(--button-bg-color-hover);
+}
+@media (max-width: 768px) {
+	.btn-primary {
+		border-radius: 30px;
+		height: 75px;
+		font-size: 18px;
+	}
+}
+@media (max-width: 480px) {
+	.btn-primary {
+		border-radius: 20px;
+		height: 70px;
+		font-size: 16px;
+	}
+}
+.btn-secondary {
+	background-color: #23272E;
+	color: #fff;
+	text-transform: uppercase;
+	font-size: 16px;
+	border: none;
+	border-radius: 8px;
+}
+.btn-secondary:focus {
+	border: 3px solid #979FB0;
+}
+@media (max-width: 768px) {
+	.btn-secondary {
+		font-size: 15px;
+	}
+}
+@media (max-width: 480px) {
+	.btn-secondary {
+		font-size: 14px;
+	}
+}
+
+/* Start Header */
+header {
+	text-align: center;
+}
+header h1 {
+	font-size: 72px;
+	font-weight: 900;
+	color: var(--heading-color);
+	margin-bottom: 12px;
+}
+header p {
+	font-size: 22px;
+	font-weight: 300;
+	color: var(--headline-color);
+}
+@media (max-width: 1024px) {
+	header h1 {
+		font-size: 56px;
+	}
+}
+@media (max-width: 768px) {
+	header h1 {
+		font-size: 48px;
+	}
+	header p {
+		font-size: 18px;
+	}
+}
+@media (max-width: 480px) {
+	header h1 {
+		font-size: 32px;
+	}
+	header p {
+		font-size: 16px;
+	}
+}
+/* End Header */
+
+/* Start Form */
+.form {
+	margin-top: 80px;
+	margin-bottom: 80px;
+	display: flex;
+	flex-direction: column;
+	gap: 50px;
+}
+.form #total {
+	background-color: #FF9EC8;
+}
+.form #total:focus {
+	outline: none;
+}
+.form-grp {
+	display: flex;
+	justify-content: space-between;
+	gap: 35px;
+}
+.form-grp input {
+	width: calc(100% / 3);
+}
+@media (max-width: 768px) {
+	.form {
+		gap: 25px;
+	}
+	.form input {
+		font-size: 16px;
+		padding-left: 22px;
+		padding-right: 22px;
+	}
+	.form-grp {
+		flex-direction: column;
+		gap: 25px;
+	}
+	.form-grp input {
+		width: 100%;
+	}
+}
+@media (max-width: 480px) {
+	.form {
+		gap: 25px;
+	}
+	.form input {
+		font-size: 14px;
+		padding-left: 22px;
+		padding-right: 22px;
+	}
+	.form-grp {
+		flex-direction: column;
+		gap: 25px;
+	}
+	.form-grp input {
+		width: 100%;
+	}
+}
+.search {
+	margin-top: 80px;
+	margin-bottom: 80px;
+	display: flex;
+	justify-content: space-between;
+	gap: 15px;
+}
+.search input {
+	width: 60%;
+}
+.search .btn-grp {
+	display: flex;
+	justify-content: space-between;
+	width: 40%;
+}
+.search .btn-grp .btn-secondary {
+	width: calc(50% - 5px);
+}
+@media (max-width: 1024px) {
+	.search {
+		flex-direction: column;
+	}
+	.search input {
+		width: 100%;
+	}
+	.search .btn-grp {
+		width: 100%;
+		height: 60px;
+	}
+}
+/* End Form */

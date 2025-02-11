@@ -1,0 +1,50 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+	<meta charset="UTF-8">
+	<meta name="viewport" content="width=device-width, initial-scale=1.0">
+	<!-- Font -->
+	<link rel="preconnect" href="https://fonts.googleapis.com">
+	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+	<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;900&display=swap" rel="stylesheet">
+	<!-- Icon -->
+	<link rel="icon" type="image/x-icon" href="./images/icon.png">
+	<!-- CSS Link -->
+	<link rel="stylesheet" href="style.css">
+	<title>StockFlow</title>
+</head>
+<body>
+	<!-- Start Header Section -->
+	 <header>
+		<h1>StockFlow</h1>
+		<p>Smart & Simple Inventory Management for Your Store</p>
+	 </header>
+	<!-- End Header Section -->
+
+	<!-- Start Form Section -->
+	 <div class="form">
+	 	<input type="text" placeholder="Title" id="title">
+	 	<div class="form-grp">
+	 		<input type="number" placeholder="Price" id="price">
+	 		<input type="number" placeholder="Taxes" id="taxes">
+	 		<input type="number" placeholder="Discount" id="discount">
+	 	</div>
+	 	<input type="number" placeholder="Total" id="total" readonly>
+	 	<input type="number" placeholder="Count" id="count">
+	 	<input type="text" placeholder="Category" id="category">
+	 </div>
+	 <button id="btn-add" class="btn-primary">add product</button>
+	 <div class="search">
+	 	<input type="text" placeholder="Search" id="search">
+	 	<div class="btn-grp">
+			<button id="btn-search-title" class="btn-secondary">by title</button>
+	 		<button id="btn-search-category" class="btn-secondary">by category</button>
+		</div>
+	 </div>
+	 <button id="btn-delete" class="btn-primary">delete all</button>
+	<!-- End Form Section -->
+
+	<!-- JavaScript -->
+	<script src="script.js"></script>
+</body>
+</html>
