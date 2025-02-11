@@ -84,6 +84,7 @@ input:focus {
 	font-weight: 900;
 	transition-duration: .15s;
 	cursor: pointer;
+	letter-spacing: 1.3px;
 }
 .btn-primary:hover {
 	background-color: var(--button-bg-color-hover);
@@ -111,7 +112,7 @@ input:focus {
 	border-radius: 8px;
 }
 .btn-secondary:focus {
-	border: 3px solid #979FB0;
+	outline: 3px solid #979FB0;
 }
 @media (max-width: 768px) {
 	.btn-secondary {
@@ -164,14 +165,14 @@ header p {
 
 /* Start Form */
 .form {
-	margin-top: 80px;
-	margin-bottom: 80px;
+	margin-top: 70px;
+	margin-bottom: 70px;
 	display: flex;
 	flex-direction: column;
-	gap: 50px;
+	gap: 40px;
 }
 .form #total {
-	background-color: #FF9EC8;
+	background-color: rgba(204, 0, 0, 0.35);
 }
 .form #total:focus {
 	outline: none;
@@ -219,8 +220,8 @@ header p {
 	}
 }
 .search {
-	margin-top: 80px;
-	margin-bottom: 80px;
+	margin-top: 70px;
+	margin-bottom: 70px;
 	display: flex;
 	justify-content: space-between;
 	gap: 15px;
@@ -249,3 +250,37 @@ header p {
 	}
 }
 /* End Form */
+
+/* Start Table */
+table {
+	width: 100%;
+	margin-top: 70px;
+	margin-bottom: 70px;
+	background-color: var(--input-bg-color);
+	text-align: center;
+	border-radius: 4px;
+}
+table tr th {
+	border-bottom: 3px solid var(--heading-color);
+	padding-top: 15px;
+	padding-bottom: 15px;
+	background-color: var(--headline-color);
+	border-radius: 4px;
+	font-size: 18px;
+	font-weight: 900;
+	color: #fff;
+	width: calc(100% / 9);
+	overflow: hidden;
+}
+table tr td {
+	padding-top: 12px;
+	padding-bottom: 12px;
+	font-size: 16px;
+	border-bottom: 1px solid var(--heading-color);
+	width: calc(100% / 9);
+	overflow: hidden;
+}
+table .btn-secondary {
+	padding: 4px 10px;
+}
+/* End Table */
