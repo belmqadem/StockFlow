@@ -1,99 +1,86 @@
 <!DOCTYPE html>
 <html lang="en">
-<head>
-	<meta charset="UTF-8">
-	<meta name="viewport" content="width=device-width, initial-scale=1.0">
-	<!-- Font -->
-	<link rel="preconnect" href="https://fonts.googleapis.com">
-	<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-	<link href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;900&display=swap" rel="stylesheet">
-	<!-- Icon -->
-	<link rel="icon" type="image/x-icon" href="./images/icon.png">
-	<!-- CSS Link -->
-	<link rel="stylesheet" href="style.css">
-	<title>StockFlow</title>
-</head>
-<body>
-	<!-- Header -->
-	<header>
-		<h1>StockFlow</h1>
-		<p>Smart & Simple Inventory Management for Your Store</p>
-	</header>
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <!-- Font -->
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Lato:wght@300;400;900&display=swap"
+      rel="stylesheet"
+    />
+    <!-- Icon -->
+    <link rel="icon" type="image/x-icon" href="./images/icon.png" />
+    <!-- CSS Link -->
+    <link rel="stylesheet" href="style.css" />
+    <title>StockFlow</title>
+  </head>
+  <body>
+    <!-- Header -->
+    <header>
+      <h1>StockFlow</h1>
+      <p>Smart & Simple Inventory Management for Your Store</p>
+    </header>
 
-	<!-- Main Content -->
-	<main>
-		<!-- Input Section -->
-		<section class="stock-input">
-			<input type="text" placeholder="Title" id="title">
-			<div class="pricing">
-				<input type="number" placeholder="Price" id="price">
-				<input type="number" placeholder="Taxes" id="taxes">
-				<input type="number" placeholder="Discount" id="discount">
-			</div>
-			<input type="number" placeholder="Total" id="total" readonly>
-			<input type="number" placeholder="Count" id="count">
-			<input type="text" placeholder="Category" id="category">
-			<button id="btn-add" class="btn-primary">add product</button>
-		</section>
+    <!-- Main Content -->
+    <main>
+      <!-- Input Section -->
+      <section class="stock-input">
+        <input type="text" placeholder="Title" id="title" />
+        <div class="pricing">
+          <input type="number" placeholder="Price" id="price" />
+          <input type="number" placeholder="Taxes" id="taxes" />
+          <input type="number" placeholder="Discount" id="discount" />
+        </div>
+        <input type="number" placeholder="Total" id="total" readonly />
+        <input type="number" placeholder="Count" id="count" />
+        <input type="text" placeholder="Category" id="category" />
+        <button id="btn-add" class="btn-primary">add product</button>
+      </section>
 
-		<!-- Output Section -->
-		<section class="stock-output">
-			<div class="search">
-				<input type="text" placeholder="Search" id="search">
-				<div class="btn-grp">
-					<button id="btn-search-title" class="btn-secondary">by title</button>
-					<button id="btn-search-category" class="btn-secondary">by category</button>
-			</div>
-			</div>
-			<button id="delete" class="btn-primary">delete all</button>
-			<table id="table">
-				<thead>
-					<tr>
-						<th>ID</th>
-						<th>TITLE</th>
-						<th>PRICE</th>
-						<th>TAXES</th>
-						<th>DISCOUNT</th>
-						<th>TOTAL</th>
-						<th>CATEGORY</th>
-						<th>UPDATE</th>
-						<th>DELETE</th>
-					</tr>
-				</thead>
-				<tbody id="product-table-body">
-					<tr>
-						<td>0</td>
-						<td>samsung</td>
-						<td>2000</td>
-						<td>200</td>
-						<td>100</td>
-						<td>2100</td>
-						<td>phones</td>
-						<td><button class="btn-secondary btn-update">update</button></td>
-						<td><button class="btn-secondary btn-delete">delete</button></td>
-					</tr>
-					<tr>
-						<td>0</td>
-						<td>samsung</td>
-						<td>2000</td>
-						<td>200</td>
-						<td>100</td>
-						<td>2100</td>
-						<td>phones</td>
-						<td><button class="btn-secondary btn-update">update</button></td>
-						<td><button class="btn-secondary btn-delete">delete</button></td>
-					</tr>
-				</tbody>
-			</table>
-		</section>
-	</main>
+      <!-- Output Section -->
+      <section class="stock-output">
+        <div class="search">
+          <input type="text" placeholder="Search" id="search" />
+          <div class="btn-grp">
+            <button id="btn-search-title" class="btn-secondary">
+              by title
+            </button>
+            <button id="btn-search-category" class="btn-secondary">
+              by category
+            </button>
+          </div>
+        </div>
+        <button id="delete" class="btn-primary" style="display: none"></button>
+        <table>
+          <thead>
+            <tr>
+              <th>ID</th>
+              <th>TITLE</th>
+              <th>PRICE</th>
+              <th>TAXES</th>
+              <th>DISCOUNT</th>
+              <th>TOTAL</th>
+              <th>CATEGORY</th>
+              <th>UPDATE</th>
+              <th>DELETE</th>
+            </tr>
+          </thead>
+          <tbody id="product-table-body"></tbody>
+        </table>
+      </section>
 
-	<!-- Footer -->
-	<footer>
-        <p>&copy; 2025 StockFlow. All rights reserved.</p>
+      <!-- Scroll button -->
+      <button id="scroll"><img src="images/arrow-top.svg" alt="arrow"></button>
+    </main>
+
+    <!-- Footer -->
+    <footer>
+      <p>&copy; 2025 StockFlow. All rights reserved.</p>
     </footer>
 
-	<!-- JavaScript Link -->
-	<script src="script.js"></script>
-</body>
+    <!-- JavaScript Link -->
+    <script src="script.js"></script>
+  </body>
 </html>
