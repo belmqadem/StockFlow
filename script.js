@@ -1,3 +1,4 @@
+// Select DOM elements
 const title = document.getElementById("title");
 const price = document.getElementById("price");
 const taxes = document.getElementById("taxes");
@@ -12,14 +13,16 @@ const btnSearchTitle = document.getElementById("btn-search-title");
 const btnSearchCategory = document.getElementById("btn-search-category");
 const btnDelete = document.getElementById("delete");
 const scroll = document.getElementById("scroll");
+const output = document.querySelector(".stock-output");
 
-// localStorage.clear();
+// Initialize product array from local storage
+let products = JSON.parse(localStorage.getItem("product")) || [];
 
 // Function to calculate total
 function updateTotal() {
-  if (price.value == "" || taxes.value == "" || discount.value == "") {
+  if (price.value == "") {
     total.value = "";
-    total.style.background = "rgba(204, 0, 0, 0.35)";
+    total.style.background = "var(--incorrect)";
     return;
   }
   let priceValue = parseFloat(price.value) || 0;
@@ -30,102 +33,133 @@ function updateTotal() {
   total.style.background = "#EEEFF2";
 }
 
-// Event listeners to update total dinamically
+// Event listeners for dynamic total calcul
 price.addEventListener("input", updateTotal);
 taxes.addEventListener("input", updateTotal);
 discount.addEventListener("input", updateTotal);
 
-// Init product array from local storage
-let products = JSON.parse(localStorage.getItem("product")) || [];
+// Function to validate input fields dynamically
+function validateInput(input, condition) {
+  if (condition) {
+    input.style.outline = "2px solid var(--incorrect)";
+    input.dataset.invalid = "true";
+  } else {
+    input.style.outline = "none";
+    input.dataset.invalid = "false";
+  }
+}
 
-// Function to add products
-btnAdd.onclick = () => {
-  if (parseInt(count.value) <= 0) {
-    alert("You're trying to add 0 elements");
+// Event listeners for real-time validation
+title.addEventListener("input", () =>
+  validateInput(title, title.value.trim() === "")
+);
+price.addEventListener("input", () =>
+  validateInput(
+    price,
+    price.value.trim() === "" || parseFloat(price.value) <= 0
+  )
+);
+category.addEventListener("input", () =>
+  validateInput(category, category.value.trim() === "")
+);
+count.addEventListener("input", () =>
+  validateInput(category, category.value.trim() === "")
+);
+
+// Function to add a product
+function addProduct() {
+  let missingFields = [];
+
+  if (title.value.trim() === "") {
+    validateInput(title, true);
+    missingFields.push("Title");
+  }
+  if (price.value.trim() === "" || parseFloat(price.value) <= 0) {
+    validateInput(price, true);
+    missingFields.push("Price");
+  }
+  if (category.value.trim() === "") {
+    validateInput(category, true);
+    missingFields.push("Category");
+  }
+  if (missingFields.length > 0) {
+    document.querySelector("[data-invalid='true']").focus();
     return;
   }
-  const itemCount = parseInt(count.value) || 1;
+  if (parseInt(count.value) <= 0) {
+    count.style.outline = "2px solid var(--incorrect)";
+    count.focus();
+    return;
+  } else {
+    count.style.outline = "none";
+  }
 
+  const itemCount = parseInt(count.value) || 1;
   for (let i = 0; i < itemCount; i++) {
-    let item = {
+    products.push({
       title: title.value.trim(),
       price: price.value.trim(),
       taxes: taxes.value.trim(),
       discount: discount.value.trim(),
       total: total.value.trim(),
       category: category.value.trim(),
-    };
-
-    if (
-      item.title === "" ||
-      item.price === "" ||
-      item.taxes === "" ||
-      item.discount === "" ||
-      item.category === ""
-    ) {
-      alert("All fields must be filled.");
-      return;
-    }
-    products.push(item);
-    localStorage.setItem("product", JSON.stringify(products));
+    });
   }
 
-  [title, price, taxes, discount, count, category].forEach(
-    (input) => (input.value = "")
-  );
-  updateTotal();
-  showProduct();
-};
+  localStorage.setItem("product", JSON.stringify(products));
 
-// function that diisplays the delete button
-function showDeleteButton() {
-  btnDelete.style.display = "block";
-  btnDelete.innerHTML = `delete all (${products.length})`;
+  [title, price, taxes, discount, count, category, total].forEach((input) => {
+    input.value = "";
+    input.style.outline = "none";
+    input.dataset.invalid = "false";
+  });
+
+  total.style.background = "var(--incorrect)";
+  showProducts();
 }
 
-// Function that shows the products in the table
-function showProduct() {
+// Event listener for adding a product
+btnAdd.addEventListener("click", addProduct);
+
+// Function to display products in the table
+function showProducts() {
   let rows = "";
   for (let i = 0; i < products.length; i++) {
     rows += `
-		<tr>
-			<td>${i}</td>
-			<td>${products[i].title}</td>
-			<td>${products[i].price}</td>
-			<td>${products[i].taxes}</td>
-			<td>${products[i].discount}</td>
-			<td>${products[i].total}</td>
-			<td>${products[i].category}</td>
-			<td><button class="btn-secondary btn-update" onclick="updateOneProduct(${i})">update</button></td>
-			<td><button class="btn-secondary btn-delete" onclick="deleteOneProduct(${i})">delete</button></td>
-		</tr>
-	`;
+      <tr>
+        <td>${i}</td>
+        <td>${products[i].title}</td>
+        <td>${products[i].price}</td>
+        <td>${products[i].taxes}</td>
+        <td>${products[i].discount}</td>
+        <td>${products[i].total}</td>
+        <td>${products[i].category}</td>
+        <td><button class="btn-secondary btn-update" onclick="updateOneProduct(${i})">Update</button></td>
+        <td><button class="btn-secondary btn-delete" onclick="deleteOneProduct(${i})">Delete</button></td>
+      </tr>
+    `;
   }
   table.innerHTML = rows;
-  if (products.length > 0) {
-    showDeleteButton();
-  }
+  btnDelete.innerHTML = `Delete All (${products.length})`;
+  output.style.display = products.length > 0 ? "block" : "none";
 }
 
-// SHow data from local storage
-showProduct();
-
-// Function to delete all data from table
+// Function to delete all products
 btnDelete.addEventListener("click", () => {
   table.innerHTML = "";
   localStorage.clear();
   products = [];
-  btnDelete.style.display = "none";
+  output.style.display = "none";
 });
 
-// function to delete one product from table
+// Function to delete one product
 function deleteOneProduct(index) {
   products.splice(index, 1);
   localStorage.setItem("product", JSON.stringify(products));
-  showProduct();
+  showProducts();
 }
 
-// function to update one product
+// Function to update a product
 function updateOneProduct(index) {
   title.value = products[index].title;
   price.value = products[index].price;
@@ -133,26 +167,15 @@ function updateOneProduct(index) {
   discount.value = products[index].discount;
   total.value = products[index].total;
   category.value = products[index].category;
-
-  count.setAttribute("readonly", null);
-  btnAdd.textContent = "update product";
-  btnAdd.onclick = () => {
+  count.setAttribute("readonly", "true");
+  btnAdd.textContent = "Update Product";
+  btnAdd.onclick = function () {
     saveUpdatedProduct(index);
   };
 }
 
-// function to save the updates for product
+// Function to save updated product
 function saveUpdatedProduct(index) {
-  if (
-    title.value == "" ||
-    price.value == "" ||
-    taxes.value == "" ||
-    discount.value == "" ||
-    category.value == ""
-  ) {
-    alert("Enter some values");
-    return;
-  }
   products[index] = {
     title: title.value.trim(),
     price: price.value.trim(),
@@ -163,16 +186,17 @@ function saveUpdatedProduct(index) {
   };
 
   localStorage.setItem("product", JSON.stringify(products));
-
-  btnAdd.textContent = "add product";
-  [title, price, taxes, discount, total, category].forEach(
-    (input) => (input.value = "")
-  );
-  showProduct();
+  [title, price, taxes, discount, total, category].forEach((input) => {
+    input.value = "";
+    input.style.outline = "none";
+  });
+  btnAdd.textContent = "Add Product";
+  btnAdd.onclick = addProduct;
   count.removeAttribute("readonly");
+  showProducts();
 }
 
-// Function that filters table
+// Function to filter table results
 function filterTableBy(index) {
   let filter = search.value.trim().toLowerCase();
   let rows = table.getElementsByTagName("tr");
@@ -180,17 +204,23 @@ function filterTableBy(index) {
   for (let i = 0; i < rows.length; i++) {
     let cell = rows[i].getElementsByTagName("td")[index];
     if (cell) {
-      let text = cell.textContent.trim().toLowerCase();
-      rows[i].style.display = text.includes(filter) ? "" : "none";
+      rows[i].style.display = cell.textContent
+        .trim()
+        .toLowerCase()
+        .includes(filter)
+        ? ""
+        : "none";
     }
   }
 }
 
+// Attach event listeners for search functionality
 btnSearchTitle.addEventListener("focus", () => {
   search.placeholder = "Search by Title...";
   search.dataset.searchIndex = "1";
   filterTableBy(1);
 });
+
 btnSearchCategory.addEventListener("focus", () => {
   search.placeholder = "Search by Category...";
   search.dataset.searchIndex = "6";
@@ -204,14 +234,12 @@ search.addEventListener("input", () => {
   filterTableBy(index);
 });
 
+// Scroll-to-top functionality
 window.onscroll = () => {
-  if (window.scrollY >= 1000) {
-    scroll.style.display = "block";
-  } else {
-    scroll.style.display = "none";
-  }
+  scroll.style.display = window.scrollY >= 500 ? "block" : "none";
 };
 
-scroll.onclick = () => {
-  window.scrollTo(0, 0);
-};
+scroll.onclick = () => window.scrollTo(0, 0);
+
+// Load products on page load
+showProducts();

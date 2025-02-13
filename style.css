@@ -7,6 +7,7 @@
   --input-height: 70px;
   --button-height: 85px;
   --outline-color: #5f92ff;
+  --incorrect: rgba(204, 0, 0, 0.35);
 }
 *,
 *::after,
@@ -56,12 +57,13 @@ input {
   padding-right: 50px;
   font-size: 18px;
   color: #000;
+  width: 100%;
 }
 input::placeholder {
   color: var(--headline-color);
 }
 input:focus {
-  outline: 1px solid var(--outline-color);
+  outline: 1px solid var(--outline-color) !important;
   caret-color: var(--outline-color);
 }
 @media (max-width: 768px) {
@@ -186,7 +188,7 @@ header p {
   gap: 40px;
 }
 .stock-input #total {
-  background-color: rgba(204, 0, 0, 0.35);
+  background-color: var(--incorrect);
 }
 .stock-input #total:focus {
   outline: none;
@@ -360,24 +362,24 @@ td:nth-child(9) {
   transition: 0.15s;
 }
 #scroll img {
-	width: 100%;
-	height: 100%;
+  width: 100%;
+  height: 100%;
 }
 #scroll:hover {
   background: #b9bfca;
 }
 @media (max-width: 1024px) {
   #scroll {
-	right: 10px;
-	width: 30px;
-	height: 30px;
+    right: 10px;
+    width: 30px;
+    height: 30px;
   }
 }
 @media (max-width: 768px) {
   #scroll {
-	right: 5px;
-	width: 15px;
-	height: 15px;
+    right: 5px;
+    width: 15px;
+    height: 15px;
   }
 }
 @media (max-width: 480px) {
