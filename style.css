@@ -180,46 +180,18 @@ header p {
 /* End Header */
 
 /* Start Input Section */
-form {
+.stock-input {
   margin-top: 70px;
   margin-bottom: 70px;
   display: flex;
   flex-direction: column;
   gap: 40px;
-  padding: 20px;
 }
-form #total {
+.stock-input #total {
   background-color: var(--incorrect);
 }
-form #total:focus {
+.stock-input #total:focus {
   outline: none;
-}
-form.editing {
-  background-color: rgba(0, 123, 255, 0.05);
-  padding: 20px;
-  border-radius: 8px;
-  border: 1px solid rgba(0, 123, 255, 0.2);
-}
-.notification {
-  position: fixed;
-  bottom: 20px;
-  right: 20px;
-  background-color: #28a745;
-  color: white;
-  padding: 12px 24px;
-  border-radius: 4px;
-  animation: slideIn 0.3s ease-out;
-  z-index: 1000;
-}
-@keyframes slideIn {
-  from {
-    transform: translateY(100px);
-    opacity: 0;
-  }
-  to {
-    transform: translateY(0);
-    opacity: 1;
-  }
 }
 .pricing {
   display: flex;
@@ -230,10 +202,10 @@ form.editing {
   width: calc(100% / 3);
 }
 @media (max-width: 768px) {
-  form {
+  .stock-input {
     gap: 25px;
   }
-  form input {
+  .stock-input input {
     font-size: 16px;
     padding-left: 22px;
     padding-right: 22px;
@@ -247,7 +219,7 @@ form.editing {
   }
 }
 @media (max-width: 480px) {
-  form input {
+  .stock-input input {
     font-size: 14px;
   }
 }
