@@ -14,6 +14,7 @@ const btnSearchCategory = document.getElementById("btn-search-category");
 const btnDelete = document.getElementById("delete");
 const scroll = document.getElementById("scroll");
 const output = document.querySelector(".stock-output");
+const form = document.querySelector("form");
 
 // Initialize product array from local storage
 let products = JSON.parse(localStorage.getItem("product")) || [];
@@ -167,34 +168,80 @@ function updateOneProduct(index) {
   discount.value = products[index].discount;
   total.value = products[index].total;
   category.value = products[index].category;
+
+  updateTotal();
   count.setAttribute("readonly", "true");
+  count.value = 1;
   btnAdd.textContent = "Update Product";
-  btnAdd.onclick = function () {
-    saveUpdatedProduct(index);
-  };
+  btnAdd.removeEventListener("click", addProduct);
+  btnAdd.onclick = () => saveUpdatedProduct(index);
+  form.scrollIntoView({ behavior: "smooth" });
 }
 
 // Function to save updated product
 function saveUpdatedProduct(index) {
-  products[index] = {
-    title: title.value.trim(),
-    price: price.value.trim(),
-    taxes: taxes.value.trim(),
-    discount: discount.value.trim(),
-    total: total.value.trim(),
-    category: category.value.trim(),
-  };
+  let missingFields = [];
 
-  localStorage.setItem("product", JSON.stringify(products));
-  [title, price, taxes, discount, total, category].forEach((input) => {
+  if (title.value.trim() === "") {
+    validateInput(title, true);
+    missingFields.push("Title");
+  }
+  if (price.value.trim() === "" || parseFloat(price.value) <= 0) {
+    validateInput(price, true);
+    missingFields.push("Price");
+  }
+  if (category.value.trim() === "") {
+    validateInput(category, true);
+    missingFields.push("Category");
+  }
+
+  if (missingFields.length > 0) {
+    document.querySelector("[data-invalid='true']").focus();
+    return;
+  }
+
+  try {
+    products[index] = {
+      title: title.value.trim(),
+      price: price.value.trim(),
+      taxes: taxes.value.trim() || "0",
+      discount: discount.value.trim() || "0",
+      total: total.value.trim(),
+      category: category.value.trim(),
+    };
+
+    localStorage.setItem("product", JSON.stringify(products));
+
+    resetForm();
+
+    showProducts();
+  } catch (error) {
+    console.error("Error updating product:", error);
+  }
+}
+
+// Function to reset form
+function resetForm() {
+  [title, price, taxes, discount, total, category, count].forEach((input) => {
     input.value = "";
     input.style.outline = "none";
+    input.dataset.invalid = "false";
   });
+
+  total.style.background = "var(--incorrect)";
+
   btnAdd.textContent = "Add Product";
-  btnAdd.onclick = addProduct;
+  btnAdd.onclick = null;
+  btnAdd.addEventListener("click", addProduct);
+
   count.removeAttribute("readonly");
-  showProducts();
 }
+
+// Update event listeners
+btnAdd.addEventListener("click", addProduct);
+
+// Initial setup
+showProducts();
 
 // Function to filter table results
 function filterTableBy(index) {
