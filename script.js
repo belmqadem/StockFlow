@@ -138,12 +138,13 @@ function showProducts() {
 }
 
 // Function to delete all products
-btnDelete.addEventListener("click", () => {
+function deleteAll() {
   table.innerHTML = "";
   localStorage.clear();
   products = [];
   output.style.display = "none";
-});
+}
+btnDelete.addEventListener("click", deleteAll);
 
 // Function to delete one product
 function deleteOneProduct(index) {
@@ -167,6 +168,9 @@ function updateOneProduct(index) {
 
   form.scrollIntoView({ behavior: "smooth" });
   title.focus();
+
+  btnDelete.removeEventListener("click", deleteAll);
+  document.querySelector(".btn-delete").removeAttribute("onclick");
 
   btnAdd.onclick = function () {
     saveUpdatedProduct(index);
@@ -214,6 +218,7 @@ function saveUpdatedProduct(index) {
   count.removeAttribute("readonly");
   form.classList.remove("update");
   showProducts();
+  btnDelete.addEventListener("click", deleteAll);
 }
 
 // Function to filter table results
