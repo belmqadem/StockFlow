@@ -2,7 +2,7 @@
 
 StockFlow is a lightweight inventory management system designed to help store owners efficiently add, update, search, and delete products while keeping track of taxes, discounts, and totals.
 
-<img src="./images/banner.png" width="250px">
+<img src="./images/banner.png" width="400px">
 
 ## 📌 Features
 ### 🔹 Product Management
@@ -94,7 +94,6 @@ git push origin your-branch-name
 ```
 
 7. Submit a Pull Request (PR)
-	- Go to the original repository: [StockFlow on GitHub](https://github.com/belmqadem/StockFlow)
 	- Click **"New Pull Request"** and select your branch.
 	- Add a clear description of your changes and submit the PR.
 
@@ -104,6 +103,6 @@ Contributions are always welcome! If you have ideas for new features or bug fixe
 For major changes, please open a discussion first to ensure compatibility with the project.
 
 ## 📞 Contact
-Email: adilbelmqadem4@gmail.com
-GitHub: [belmqadem](https://github.com/belmqadem)
-LinkedIn: [Adil Belmqadem](https://www.linkedin.com/in/adilbelmqadem/)
+- Email: adilbelmqadem4@gmail.com
+- GitHub: [belmqadem](https://github.com/belmqadem)
+- LinkedIn: [Adil Belmqadem](https://www.linkedin.com/in/adilbelmqadem/)
