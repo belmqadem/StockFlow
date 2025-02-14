@@ -14,9 +14,10 @@ const btnSearchCategory = document.getElementById("btn-search-category");
 const btnDelete = document.getElementById("delete");
 const scroll = document.getElementById("scroll");
 const output = document.querySelector(".stock-output");
+const form = document.querySelector(".stock-input");
 
 // Initialize product array from local storage
-let products = JSON.parse(localStorage.getItem("product")) || [];
+let products = JSON.parse(localStorage.getItem("products")) || [];
 
 // Function to calculate total
 function updateTotal() {
@@ -53,16 +54,8 @@ function validateInput(input, condition) {
 title.addEventListener("input", () =>
   validateInput(title, title.value.trim() === "")
 );
-price.addEventListener("input", () =>
-  validateInput(
-    price,
-    price.value.trim() === "" || parseFloat(price.value) <= 0
-  )
-);
+price.addEventListener("input", () => validateInput(price, price.value === ""));
 category.addEventListener("input", () =>
-  validateInput(category, category.value.trim() === "")
-);
-count.addEventListener("input", () =>
   validateInput(category, category.value.trim() === "")
 );
 
@@ -74,7 +67,7 @@ function addProduct() {
     validateInput(title, true);
     missingFields.push("Title");
   }
-  if (price.value.trim() === "" || parseFloat(price.value) <= 0) {
+  if (price.value === "" || parseFloat(price.value) <= 0) {
     validateInput(price, true);
     missingFields.push("Price");
   }
@@ -98,28 +91,28 @@ function addProduct() {
   for (let i = 0; i < itemCount; i++) {
     products.push({
       title: title.value.trim(),
-      price: price.value.trim(),
-      taxes: taxes.value.trim(),
-      discount: discount.value.trim(),
-      total: total.value.trim(),
+      price: price.value,
+      taxes: taxes.value || 0,
+      discount: discount.value || 0,
+      total: total.value,
       category: category.value.trim(),
     });
   }
 
-  localStorage.setItem("product", JSON.stringify(products));
+  localStorage.setItem("products", JSON.stringify(products));
 
   [title, price, taxes, discount, count, category, total].forEach((input) => {
     input.value = "";
     input.style.outline = "none";
     input.dataset.invalid = "false";
   });
-
   total.style.background = "var(--incorrect)";
+
   showProducts();
 }
 
 // Event listener for adding a product
-btnAdd.addEventListener("click", addProduct);
+btnAdd.onclick = addProduct;
 
 // Function to display products in the table
 function showProducts() {
@@ -155,7 +148,7 @@ btnDelete.addEventListener("click", () => {
 // Function to delete one product
 function deleteOneProduct(index) {
   products.splice(index, 1);
-  localStorage.setItem("product", JSON.stringify(products));
+  localStorage.setItem("products", JSON.stringify(products));
   showProducts();
 }
 
@@ -169,6 +162,12 @@ function updateOneProduct(index) {
   category.value = products[index].category;
   count.setAttribute("readonly", "true");
   btnAdd.textContent = "Update Product";
+  total.style.background = "var(--input-bg-color)";
+  form.classList.add("update");
+
+  form.scrollIntoView({ behavior: "smooth" });
+  title.focus();
+
   btnAdd.onclick = function () {
     saveUpdatedProduct(index);
   };
@@ -176,23 +175,44 @@ function updateOneProduct(index) {
 
 // Function to save updated product
 function saveUpdatedProduct(index) {
+  let missingFields = [];
+  if (title.value.trim() === "") {
+    validateInput(title, true);
+    missingFields.push("Title");
+  }
+  if (price.value === "" || parseFloat(price.value) <= 0) {
+    validateInput(price, true);
+    missingFields.push("Price");
+  }
+  if (category.value.trim() === "") {
+    validateInput(category, true);
+    missingFields.push("Category");
+  }
+  if (missingFields.length > 0) {
+    document.querySelector("[data-invalid='true']").focus();
+    return;
+  }
+
   products[index] = {
     title: title.value.trim(),
-    price: price.value.trim(),
-    taxes: taxes.value.trim(),
-    discount: discount.value.trim(),
-    total: total.value.trim(),
+    price: price.value,
+    taxes: taxes.value || 0,
+    discount: discount.value || 0,
+    total: total.value,
     category: category.value.trim(),
   };
 
-  localStorage.setItem("product", JSON.stringify(products));
-  [title, price, taxes, discount, total, category].forEach((input) => {
+  localStorage.setItem("products", JSON.stringify(products));
+  [title, price, taxes, discount, count, category, total].forEach((input) => {
     input.value = "";
     input.style.outline = "none";
+    input.dataset.invalid = "false";
   });
+  total.style.background = "var(--incorrect)";
   btnAdd.textContent = "Add Product";
   btnAdd.onclick = addProduct;
   count.removeAttribute("readonly");
+  form.classList.remove("update");
   showProducts();
 }
 
@@ -214,7 +234,7 @@ function filterTableBy(index) {
   }
 }
 
-// Attach event listeners for search functionality
+// Event listeners for search functionality
 btnSearchTitle.addEventListener("focus", () => {
   search.placeholder = "Search by Title...";
   search.dataset.searchIndex = "1";
@@ -236,10 +256,11 @@ search.addEventListener("input", () => {
 
 // Scroll-to-top functionality
 window.onscroll = () => {
-  scroll.style.display = window.scrollY >= 500 ? "block" : "none";
+  scroll.style.display = window.scrollY >= 1200 ? "block" : "none";
 };
 
 scroll.onclick = () => window.scrollTo(0, 0);
 
-// Load products on page load
+// // Load products on page load
+window.onload = title.focus();
 showProducts();

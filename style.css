@@ -28,7 +28,7 @@ body {
 }
 body {
   background-color: #dcdfe5;
-  padding: 0 16vw;
+  padding: 0 14vw;
 }
 @media (max-width: 1024px) {
   body {
@@ -37,12 +37,12 @@ body {
 }
 @media (max-width: 768px) {
   body {
-    padding: 0 4vw;
+    padding: 0 2vw;
   }
 }
 @media (max-width: 480px) {
   body {
-    padding: 0 12px;
+    padding: 0 10px;
   }
 }
 main {
@@ -186,6 +186,7 @@ header p {
   display: flex;
   flex-direction: column;
   gap: 40px;
+  padding: 25px;
 }
 .stock-input #total {
   background-color: var(--incorrect);
@@ -200,6 +201,12 @@ header p {
 }
 .pricing input {
   width: calc(100% / 3);
+}
+.update {
+  padding: 25px;
+  background-color: #bdd2ff;
+  border-radius: 16px;
+  border: 1px solid #5f92ff;
 }
 @media (max-width: 768px) {
   .stock-input {
@@ -226,6 +233,9 @@ header p {
 /* End Input Section */
 
 /* Start Output Section */
+.stock-output {
+  padding: 0 25px;
+}
 .search {
   margin-top: 40px;
   margin-bottom: 40px;
@@ -351,40 +361,31 @@ td:nth-child(9) {
 #scroll {
   position: fixed;
   bottom: 40px;
-  right: 40px;
-  background: var(--input-bg-color);
+  background: #B9BFCA;
   border: none;
   border-radius: 50%;
-  width: 40px;
-  height: 40px;
+  width: 60px;
+  height: 60px;
   display: none;
   cursor: pointer;
   transition: 0.15s;
+  opacity: 0.7;
+  left: 50%;
+  transform: translateX(-50%);
 }
 #scroll img {
   width: 100%;
   height: 100%;
 }
 #scroll:hover {
-  background: #b9bfca;
-}
-@media (max-width: 1024px) {
-  #scroll {
-    right: 10px;
-    width: 30px;
-    height: 30px;
-  }
+  background: #979FB0;
 }
 @media (max-width: 768px) {
   #scroll {
-    right: 5px;
-    width: 15px;
-    height: 15px;
-  }
-}
-@media (max-width: 480px) {
-  #scroll {
-    display: none !important;
+    width: 40px;
+    height: 40px;
+    left: 50%;
+    transform: translateX(-50%);
   }
 }
 /* End Output Section */
@@ -395,7 +396,7 @@ footer {
   font-weight: 300;
   color: var(--headline-color);
   text-align: center;
-  padding: 15px 0;
+  padding: 30px 0;
 }
 @media (max-width: 768px) {
   footer {
