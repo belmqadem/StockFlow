@@ -51,15 +51,13 @@ StockFlow is a lightweight inventory management system designed to help store ow
 - Click the **"Delete"** button on a specific product to remove it.
 - Click **"Delete All"** to remove all products.
 
-## 💻 Installation & Running the Project
-1. Clone the Repository
-```sh
-git clone https://github.com/your-username/StockFlow.git
-```
+## 🔗 Live Demo
 
-2. Open `index.html` in a Browser
-	- No additional setup is required!
-	- The project is fully **client-side** and runs in a web browser.
+🎯 Experience StockFlow in Action!
+
+🌐 Live Link: [StockFlow](https://belmqadem.github.io/StockFlow/)
+
+⚡ No Installation Needed → Just click the link and explore!
 
 ## 🚀 Forking the Project & Adding Features
 Want to contribute? Follow these steps:
@@ -104,5 +102,4 @@ For major changes, please open a discussion first to ensure compatibility with t
 
 ## 📞 Contact
 - Email: adilbelmqadem4@gmail.com
-- GitHub: [belmqadem](https://github.com/belmqadem)
 - LinkedIn: [Adil Belmqadem](https://www.linkedin.com/in/adilbelmqadem/)
